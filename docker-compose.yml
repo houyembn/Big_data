@@ -29,9 +29,13 @@ services:
     container_name: logstash
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logstash/logs:/usr/share/logstash/logs
       - ./logstash/config:/usr/share/logstash/config
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
     ports:
       - "5044:5044"
+    depends_on:
+      - elasticsearch
 
   mongodb:
     # Optionnel, pour persistance supplémentaire
