@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='csvjson-img.png') }}" type="image/x-icon">
+    <title>Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard_container">
+        <div class="header_dashboard">
+            <!-- <a href="/"><img src="{{ url_for('static', filename='fleche.png') }}" alt=""></a> -->
+            <h1> <i class="fas fa-search"></i> Search</h1>
+        </div>
+
+        <div class="search-box">
+            <form method="POST" class="search-input">
+                <input type="text" name="query" placeholder="Entrez votre recherche..." value="{{ query }}">
+                <button type="submit">Rechercher</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Line Id</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Level</th>
+                        <th>Process</th>
+                        <th>Component</th>
+                        <th>Content</th>
+                        <th>EventId</th>
+                        <th>EventTemplate</th>
+                        <th>Pid</th>
+                        <th>User</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result['_source']['LineId'] }}</td>
+                        <td>{{ result['_source']['Date'] }}</td>
+                        <td>{{ result['_source']['Time'] }}</td>
+                        <td>{{ result['_source']['Level'] }}</td>
+                        <td>{{ result['_source']['Process'] }}</td>
+                        <td>{{ result['_source']['Component'] }}</td>
+                        <td>{{ result['_source']['Content'] }}</td>
+                        <td>{{ result['_source']['EventId'] }}</td>
+                        <td>{{ result['_source']['EventTemplate'] }}</td>
+                        <td>{{ result['_source']['Pid'] }}</td>
+                        <td>{{ result['_source']['User'] }}</td>
+                        <td>{{ result['_source']['Timestamp'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
