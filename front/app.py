@@ -73,7 +73,7 @@ def chercher_logs():
                 "query": {
                     "multi_match": {
                         "query": query,
-                        "fields": ["LineId", "Date", "Time", "Level", "Process", "Component", "Content", "EventId", "EventTemplate", "Pid", "User", "Timestamp"]
+                        "fields": ["LineId", "Label", "Timestamp", "Date", "Node", "Time", "NodeRepeat", "Type"," Component","Level", "Content","EvenId","EventTemplate"]
                     }
                 }
             }
