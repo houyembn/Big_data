@@ -224,12 +224,11 @@ body {
         <div class="header_dashboard">
             <h1> <i class="fas fa-search"></i>Chercher</h1>
         </div>
-           
-        
 
         <div class="search-box">
-            <h1>Chercher dans CSV </h1>
+            <h1>Chercher dans JSON </h1>
             <form method="POST" class="search-input">
+                
                 <input type="text" name="query" placeholder="Entrez votre recherche..." value="{{ query }}">
                 <button type="submit">Rechercher</button>
             </form>
@@ -237,36 +236,21 @@ body {
             <table>
                 <thead>
                     <tr>
-                        <th>Line Id</th>
-                        <th>Label</th>
                         <th>Timestamp</th>
-                        <th>Date</th>
-                        <th>Node</th>
-                        <th>Time</th>
-                        <th>NodeRepeat</th>
-                        <th>Type</th>
-                        <th>Component</th>
-                        <th>Level</th>
-                        <th>Content</th>
-                        <th>EvenId</th>
-                        <!-- <th>EventTemplate</th> -->
+                        <th>Account</th>
+                        <th>AccountType</th>
+                        <th>EventSourceName</th>
+                        <th>Severity</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for result in results %}
                     <tr>
-                        <td>{{ result['_source']['LineId'] }}</td>
-                        <td>{{ result['_source']['Label'] }}</td>
                         <td>{{ result['_source']['Timestamp'] }}</td>
-                        <td>{{ result['_source']['Date'] }}</td>
-                        <td>{{ result['_source']['Node'] }}</td>
-                        <td>{{ result['_source']['Time'] }}</td>
-                        <td>{{ result['_source']['NodeRepeat'] }}</td>
-                        <td>{{ result['_source']['Type'] }}</td>
-                        <td>{{ result['_source']['Component'] }}</td>
-                        <td>{{ result['_source']['Level'] }}</td>
-                        <td>{{ result['_source']['Content'] }}</td>
-                        <!-- <td>{{ result['_source']['EventTemplate'] }}</td> -->
+                        <td>{{ result['_source']['Account'] }}</td>
+                        <td>{{ result['_source']['AccountType'] }}</td>
+                        <td>{{ result['_source']['EventSourceName'] }}</td>
+                        <td>{{ result['_source']['Severity'] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

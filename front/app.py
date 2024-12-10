@@ -198,5 +198,31 @@ def search_logs():
     return render_template('chercher.html', results=results, query=query)
 
 
+@app.route('/chercherjson', methods=['GET', 'POST'])
+def search_logs_json():
+    results = []
+    query = ""
+    if request.method == 'POST':
+        query = request.form.get('query')
+        if query:
+            # Elasticsearch search query
+            es_query = {
+                "query": {
+                    "multi_match": {
+                        "query": query,
+                        "fields": ["Timestamp", "Account", "AccountType", "EventSourceName", "Severity"]
+                    }
+                }
+            }
+            response = es.search(index="json21-2024.12.10", body=es_query)
+            results = response.get('hits', {}).get('hits', [])
+
+            # Remove duplicates based on 'LineId'
+            # results = {result['_source']['LineId']
+            #     : result for result in results}.values()
+
+    return render_template('chercherjson.html', results=results, query=query)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

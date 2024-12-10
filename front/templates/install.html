@@ -171,16 +171,16 @@
         gap: 170px; /* Space between buttons */
         margin-top: 20px;
     }
-    .navbar {
+    /* .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background-color: #3944BC;
             display: flex;
-            justify-content: flex-start; /* Align items to the left */
+            justify-content: flex-start;
             align-items: center;
-            padding: 10px 50px; /* Increased padding for a larger navbar */
+            padding: 10px 50px;
             z-index: 1000;
             color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -189,7 +189,7 @@
         .navbar a {
             color: #fff;
             text-decoration: none;
-            margin-right: 20px; /* Space between links */
+            margin-right: 20px; 
             font-size: 18px;
             transition: color 0.3s;
         }
@@ -202,22 +202,95 @@
             margin-right: 8px;
         }
 
-        /* Ensure content is not hidden under navbar */
+       
         .content {
-            margin-top: 80px; /* Height of the navbar + padding */
+            margin-top: 80px;
             padding: 20px;
-        }
+        } */
+         /* Navbar styles */
+.navbar {
+    position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #3944BC;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 50px;
+            z-index: 1000;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button styles */
+.dropbtn {
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropbtn i {
+    margin-right: 5px;
+    
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    z-index: 1;
+}
+
+/* Show the dropdown content when hovering over the button */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style for links inside dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Optional: add a hover effect on the dropdown button */
+.dropdown:hover .dropbtn {
+    background-color: #0492C2;
+}
+.navbar a {
+    margin-right: 15px; 
+
+}
     </style>
 
 </head>
 
 <body>
-    <div class="navbar">
-        <!-- <a href="/chercher" title="Chercher">
-            <i class="fas fa-file"></i></i>Chercher
-        </a> -->
+    <!-- <div class="navbar">
         <a href="/chercher" title="Chercher">
-            <i class="fas fa-search"></i>Chercher
+            <i class="fas fa-search"></i>Chercher dans CSV
+        </a>
+        <a href="/chercherjson" title="Chercher">
+            <i class="fas fa-search"></i>Chercher dans JSON
         </a>
         <a href="/dashboard" title="Dashboard">
             <i class="fas fa-columns"></i>Dashboard CSV
@@ -225,7 +298,45 @@
         <a href="/dashboardjson" title="Dashboard">
             <i class="fas fa-chart-bar"></i>Dashboard JSON
         </a>
+    </div> -->
+
+    <div class="navbar">
+        <a href="/" class="dropbtn">
+            <i class="fas fa-download"></i>Télécharger un fichier
+        </a>
+        <!-- CSV Dropdown -->
+        <div class="dropdown">
+           
+            <a href="#" class="dropbtn">
+                <i class="fas fa-file-csv"></i> CSV
+            </a>
+            <div class="dropdown-content">
+                <a href="/chercher" title="Chercher CSV">
+                    <i class="fas fa-search"></i> Chercher dans CSV
+                </a>
+                <a href="/dashboard" title="Dashboard CSV">
+                    <i class="fas fa-columns"></i> Dashboard CSV
+                </a>
+            </div>
+        </div>
+    
+        <!-- JSON Dropdown -->
+        <div class="dropdown">
+            
+            <a href="#" class="dropbtn">
+                <i class="fas fa-file-code"></i> JSON
+            </a>
+            <div class="dropdown-content">
+                <a href="/chercherjson" title="Chercher JSON">
+                    <i class="fas fa-search"></i> Chercher dans JSON
+                </a>
+                <a href="/dashboardjson" title="Dashboard JSON">
+                    <i class="fas fa-chart-bar"></i> Dashboard JSON
+                </a>
+            </div>
+        </div>
     </div>
+    
     <div class="">
      
 
@@ -243,16 +354,20 @@
             <input type="file" name="file" id="file" required>
             <button type="submit">Télécharger</button>
         </form> -->
+
+        <div id="upload-message" style="display: none; text-align: center; margin-bottom: 20px;">
+            <p id="message-text" style="padding: 10px; border-radius: 5px;"></p>
+        </div>
         <form action="/upload" method="post" enctype="multipart/form-data" class="form-container">
             <div class="upload-container">
-                <h1>UPLOAD FILES</h1>
-                <p>Upload files you want to share with your team members. PDF, Images & Videos are allowed.</p>
+                <h1>Télécharger un fichier</h1>
+                <p>Cliquez sur "Parcourir les fichiers" et sélectionnez votre fichier de logs.</p>
         
                 <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <span>Drag & Drop your files here</span>
-                    <span>OR</span>
-                    <a href="#" class="upload-btn" onclick="event.preventDefault(); document.getElementById('fileInput').click()">Browse Files</a>
+                    <span>Glissez-déposez vos fichiers ici.</span>
+                    <span>Ou</span>
+                    <a href="#" class="upload-btn" onclick="event.preventDefault(); document.getElementById('fileInput').click()">Parcourir les fichiers</a>
                 </div>
         
                 <!-- Hidden file input for file selection -->
@@ -267,14 +382,16 @@
                         <i class="fas fa-download"></i>
                     </button>
         
-                    <!-- Aller au Dashboard button -->
+                    <div id="upload-message" style="display: none;">
+                        <p id="message-text"></p>
+                    </div>
                     
                 </div>
             </div>
         </form>
-        <form action="{{ url_for('show_visualization') }}" method="GET" class="form-container">
+        <!-- <form action="{{ url_for('show_visualization') }}" method="GET" class="form-container">
             <button type="submit" class="dashboard-button">Aller au Dashboard<i class="fas fa-arrow-right"></i></button>
-        </form>
+        </form> -->
         
         <script>
             function showUploadedFile(event) {
@@ -306,6 +423,44 @@
             <button type="submit">Aller au Dashboard</button>
         </form> -->
     </div>
+    <script>
+        function handleUpload(event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    // Envoyer le fichier via Fetch API
+    fetch(form.action, {
+        method: form.method,
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            showMessage('Fichier téléchargé avec succès !', 'success');
+        } else {
+            response.text().then(error => showMessage(`Erreur : ${error}`, 'error'));
+        }
+    })
+    .catch(error => {
+        showMessage('Une erreur est survenue. Veuillez réessayer.', 'error');
+    });
+}
+
+function showMessage(message, type) {
+    const messageContainer = document.getElementById('upload-message');
+    const messageText = document.getElementById('message-text');
+    
+    messageText.textContent = message;
+    messageText.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+    messageText.style.color = type === 'success' ? '#155724' : '#721c24';
+    messageText.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+    
+    messageContainer.style.display = 'block'; // Affiche le message
+}
+
+    </script>
+    
 </body>
 
 </html>
